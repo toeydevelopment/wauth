@@ -167,3 +167,10 @@ func (u *User) SetRole(role string) {
 func (u *User) GetRole() string {
 	return u.Role
 }
+
+func GetUserInfoFromContext(ctx context.Context) (User, error) {
+	if u, ok := ctx.Value(contextKey("user")).(User); ok {
+		return u, nil
+	}
+	return User{}, fmt.Errorf("user can't be parsed")
+}
